@@ -13,22 +13,17 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '14.x'
-    
+
 - task: Npm@1
   inputs:
     command: 'install'
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'run-script build'
 
-- task: CopyFiles@2
+- task: ArchiveFiles@2
   inputs:
-    Contents: 'build/**' # Pull the build directory (React)
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-- task: PublishBuildArtifacts@1
-  inputs: 
-    PathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
-    ArtifactName: 'www' # output artifact named www
