@@ -13,10 +13,11 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '14.x'
-    
+
 - task: Npm@1
   inputs:
     command: 'install'
+
 
 - task: ArchiveFiles@2
   inputs:
@@ -26,7 +27,3 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
-- task: PublishBuildArtifacts@1
-  inputs: 
-    PathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
-    ArtifactName: 'www' # output artifact named www
